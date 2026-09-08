@@ -12,6 +12,8 @@ It was built for a de-modernised Europe: a few surviving paved roads, cart track
 
 **The app** — open `index.html` in any browser. No server, no install, no network: the gazetteer, the terrain grid and the coastline are all carried inside the file, which is why it is about ten megabytes.
 
+It is built for a large screen, where the dials sit beside the answer. On a phone the same two panes become two tabs — *The journey* and *The reckoning* — and the tab carries the figure, so you can read how long the crossing takes without leaving the dials. The chart squares up, drags with one finger and pinches with two.
+
 **On the web** — because the app is `index.html` at the top of the repo, turning on GitHub Pages publishes it as-is. See [Publishing it](#publishing-it) below.
 
 **The command line** — needs Python 3, nothing else:

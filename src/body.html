@@ -7,7 +7,12 @@
   <button type="button" id="reset" class="reset" title="Clear the map and put every dial back where it started">Start afresh</button>
 </header>
 
-<div class="shell">
+<nav class="tabs" id="tabs" role="tablist" aria-label="Journey or reckoning">
+  <button role="tab" data-pane="rail" aria-selected="true">The journey</button>
+  <button role="tab" data-pane="results" aria-selected="false">The reckoning<span id="tabfig"></span></button>
+</nav>
+
+<div class="shell" id="shell" data-pane="rail">
   <aside class="rail">
     <div class="group">
       <div class="grouphead">The world</div>
@@ -144,7 +149,10 @@
         </select>
       </label>
     </div>
+    <button type="button" class="topane" id="topane">See the reckoning &rarr;</button>
   </aside>
 
   <main class="results" id="out"></main>
 </div>
+
+<div class="working" id="working" role="status" hidden>Reckoning…</div>

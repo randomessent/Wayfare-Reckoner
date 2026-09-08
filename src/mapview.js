@@ -31,7 +31,11 @@ function clampView(v){
   return v;
 }
 
-const MAPW = 1000, MAPASPECT = 1.62, MAPH = Math.round(1000/1.62);
+/* The chart is wider than it is tall on a desk, where there is width to spare.
+   On a phone that leaves a 220-pixel letterbox, so it squares up. */
+const NARROW = typeof matchMedia === "function" && matchMedia("(max-width: 820px)").matches;
+const MAPW = 1000, MAPASPECT = NARROW ? 1.05 : 1.62;
+const MAPH = Math.round(MAPW / MAPASPECT);
 
 function fitToRoute(r){
   let x0=Infinity,x1=-Infinity,y0=Infinity,y1=-Infinity;
@@ -145,7 +149,12 @@ function drawMap(){
   const inView = (la,lo) => la>lat0-0.2 && la<lat1+0.2 && lo>lon0-0.3 && lo<lon1+0.3;
 
   const pxw = Math.max(300, (host.clientWidth || 1000));
-  const fs = Math.max(1, Math.min(2.9, 1000 / pxw));
+  /* Type on the chart is sized in SVG units, so it shrinks with the container.
+     On a phone that puts place names below legibility — so they are scaled up,
+     and because fewer then fit, fewer are drawn. Larger and sparser beats
+     complete and unreadable. */
+  const fs = NARROW ? Math.max(1, Math.min(3.9, 1000 / pxw * 1.32))
+                    : Math.max(1, Math.min(2.9, 1000 / pxw));
 
   const path = flat => {
     let d = "";
@@ -209,7 +218,10 @@ function drawMap(){
 
   /* the night stops, worked out first so place names can dodge them */
   const march = r.sim.days.filter(d=>d.kind !== "rest");
-  const every = march.length > 24 ? Math.ceil(march.length/12) : (march.length > 12 ? 2 : 1);
+  /* how often a night gets a number: the smaller the chart, the fewer fit */
+  const slots = NARROW ? 7 : 12;
+  const every = march.length > slots*2 ? Math.ceil(march.length/slots)
+              : (march.length > slots ? 2 : 1);
   const stopAt = r.sim.days.map(d=>{
     const [la,lo] = positionAt(r.segs, d.cum);
     return {d, x:X(lo), y:Y(la), on:inView(la,lo)};
@@ -370,12 +382,46 @@ function wireChart(){
   }, {passive:false});
 
   let drag = null;
+  /* Every finger and the mouse arrive as pointers. One of them drags the map;
+     two of them pinch it, which on a phone is what the scroll wheel is on a
+     desk — so the live ones are tracked rather than just the first. */
+  const live = new Map();
+
+  const pinchState = () => {
+    const pts = [...live.values()];
+    const dx = pts[0].x - pts[1].x, dy = pts[0].y - pts[1].y;
+    return {dist:Math.hypot(dx, dy) || 1,
+            mx:(pts[0].x + pts[1].x)/2, my:(pts[0].y + pts[1].y)/2};
+  };
+  let pinch = null;
+
   host.addEventListener("pointerdown", e=>{
     if (e.target.closest(".stop")) return;
-    drag = {x:e.clientX, y:e.clientY, cx:MAP.cx, cy:MAP.cy};
-    host.setPointerCapture(e.pointerId); host.classList.add("grabbing");
+    live.set(e.pointerId, {x:e.clientX, y:e.clientY});
+    host.setPointerCapture(e.pointerId);
+    if (live.size === 2){
+      drag = null; host.classList.remove("grabbing");
+      pinch = {...pinchState(), span:MAP.span};
+    } else if (live.size === 1){
+      drag = {x:e.clientX, y:e.clientY, cx:MAP.cx, cy:MAP.cy};
+      host.classList.add("grabbing");
+    }
   });
   host.addEventListener("pointermove", e=>{
+    if (live.has(e.pointerId)) live.set(e.pointerId, {x:e.clientX, y:e.clientY});
+    if (pinch && live.size === 2){
+      const now = pinchState();
+      const want = pinch.span * (pinch.dist / now.dist);
+      const rect = host.getBoundingClientRect(), k = MAPW / MAP.span;
+      const ux = (now.mx - rect.left) * MAPW / rect.width;
+      const uy = (now.my - rect.top)  * MAPW / rect.width;
+      const wx = MAP.cx + (ux - MAPW/2)/k, wy = MAP.cy - (uy - MAPH/2)/k;
+      MAP.span = want; clampView(MAP);
+      const k2 = MAPW / MAP.span;
+      MAP.cx = wx - (ux - MAPW/2)/k2; MAP.cy = wy + (uy - MAPH/2)/k2;
+      clampView(MAP); scheduleMap();
+      return;
+    }
     if (!drag) return;
     const rect = host.getBoundingClientRect(), k = MAPW / MAP.span;
     const ux = (e.clientX - drag.x) * MAPW / rect.width;
@@ -383,7 +429,17 @@ function wireChart(){
     MAP.cx = drag.cx - ux/k; MAP.cy = drag.cy + uy/k;
     clampView(MAP); scheduleMap();
   });
-  const stop = e=>{ if (drag){ drag = null; host.classList.remove("grabbing"); try{host.releasePointerCapture(e.pointerId);}catch(_){}}};
+  const stop = e=>{
+    live.delete(e.pointerId);
+    if (live.size < 2) pinch = null;
+    if (live.size === 1){
+      /* one finger lifted mid-pinch: carry on panning from where the other is */
+      const [only] = [...live.values()];
+      drag = {x:only.x, y:only.y, cx:MAP.cx, cy:MAP.cy};
+    }
+    if (!live.size && drag){ drag = null; host.classList.remove("grabbing"); }
+    try{ host.releasePointerCapture(e.pointerId); }catch(_){}
+  };
   host.addEventListener("pointerup", stop);
   host.addEventListener("pointercancel", stop);
   host.addEventListener("dblclick", e=>{ e.preventDefault(); zoomBy(0.55, e.clientX, e.clientY); });
@@ -407,7 +463,8 @@ function mapShell(r, cfg){
       kilometres; the ground inside it is painted straight from the terrain grid the reckoning walks over — a tenth
       of a degree, near enough eleven kilometres — so the colours are the ground that was actually counted, not a
       picture laid over it. Every dot on the road is a night's end${r.sim.rest ? `, and the ringed ones are forced halts` : ``}.
-      Drag to pan, scroll or double-click to zoom, hover or tab a dot to find it in the itinerary.
+      ${NARROW ? `Drag to pan, pinch to zoom, tap a dot to find it in the itinerary.`
+                : `Drag to pan, scroll or double-click to zoom, hover or tab a dot to find it in the itinerary.`}
       ${r.seaKm ? `The dashed stretches are under sail.` : ``}
       ${cfg.scale > 1.001 ? `Distances are reckoned at ×${cfg.scale.toFixed(2)}, so the road is longer than the scale bar suggests.` : ``}</p>
   </div>`;

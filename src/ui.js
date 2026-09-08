@@ -122,6 +122,12 @@ function fmtDH(h){
   if (d) return `${d} day${d!==1?"s":""}`;
   return `${r.toFixed(1)} hours`;
 }
+/* "21d 6h" — the figure at its smallest, for the mobile tab */
+function shortDH(h){
+  let d = Math.floor(h/24), r = Math.round(h - d*24);
+  if (r === 24){ d += 1; r = 0; }
+  return d ? (r ? `${d}d ${r}h` : `${d}d`) : `${r}h`;
+}
 function bigDH(h){
   let d = Math.floor(h/24), r = Math.round(h - d*24);
   if (r >= 24){ d += 1; r = 0; }          // 23.7 h must not print as "24 h"
@@ -148,7 +154,10 @@ function readConfig(){
 
 function strip(r){
   const days = r.sim.days, total = r.sim.total;
-  const W = Math.max(980, days.length*30), H = 108;
+  /* The strip scrolls sideways when it must, but a short journey should fit a
+     phone screen outright rather than making the reader drag to see day four. */
+  const wide = typeof matchMedia !== "function" || !matchMedia("(max-width: 820px)").matches;
+  const W = Math.max(wide ? 980 : 330, days.length*(wide ? 30 : 21)), H = 108;
   const y = 22, h = 30, pad = 10;
   const iw = W - pad*2;
   let x = 0, bars = "";
@@ -178,7 +187,7 @@ function strip(r){
   const heads = `<text x="${pad}" y="14" style="fill:var(--ink);font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.08em">${startName.toUpperCase()}</text>`
     + `<text x="${W-pad}" y="14" text-anchor="end" style="fill:var(--ink);font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.08em">${endName.toUpperCase()}</text>`;
   const foot = `<text x="${pad}" y="${y+h+34}" style="fill:var(--ink-faint);font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:.14em">DAY</text>`;
-  return `<div class="stripwrap"><svg class="strip-anim" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" role="img" aria-label="Route strip from ${startName} to ${endName}, coloured by terrain with a tick for each day's end.">${bars}${ticks}${marks}${heads}${labels}${foot}</svg></div>`;
+  return `<div class="stripwrap stripscroll"><svg class="strip-anim" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" role="img" aria-label="Route strip from ${startName} to ${endName}, coloured by terrain with a tick for each day's end.">${bars}${ticks}${marks}${heads}${labels}${foot}</svg></div>`;
 }
 
 function legend(r){
@@ -229,7 +238,65 @@ function notes(r,cfg){
 
 function resolveSafe(v){ try { resolve(v); return true; } catch(e){ return false; } }
 
+/* the fade at the strip's right edge means "there is more" — so it goes away
+   once there isn't, and when the whole strip already fits */
+function wireStrip(){
+  const el = document.querySelector(".stripscroll");
+  if (!el) return;
+  const mark = () => {
+    const done = el.scrollLeft + el.clientWidth >= el.scrollWidth - 2;
+    el.dataset.end = done ? "1" : "0";
+  };
+  el.addEventListener("scroll", mark, {passive:true});
+  mark();
+}
+
+/* On a phone the tab bar carries the figure, so you can read how long the
+   journey takes without leaving the dials. */
+function setTabFigure(text){
+  const el = $("tabfig");
+  if (el) el.textContent = text ? "\u00b7 " + text : "";
+}
+function showPane(which){
+  const shell = $("shell");
+  if (!shell) return;
+  shell.dataset.pane = which;
+  document.querySelectorAll("#tabs button")
+    .forEach(b=>b.setAttribute("aria-selected", String(b.dataset.pane === which)));
+  window.scrollTo({top:0, behavior:"instant" in window ? "instant" : "auto"});
+}
+document.querySelectorAll("#tabs button")
+  .forEach(b=>b.addEventListener("click", ()=>showPane(b.dataset.pane)));
+const toPane = $("topane");
+if (toPane) toPane.addEventListener("click", ()=>showPane("results"));
+
+/* A crossing of Eurasia is a second or two of search on a phone, and the page
+   is frozen for all of it. Painting a "reckoning" note first costs one frame
+   and turns a hang into a wait. */
+let pending = null, lastReckon = 0;
 function render(){
+  if (pending) cancelAnimationFrame(pending);
+  paintDials();
+  const note = $("working");
+  /* Only say "reckoning" when there is something to wait for. A short journey
+     comes back inside a frame and a pill that flashes for 80 ms is worse than
+     no pill at all — so the last run's duration decides. */
+  const slow = lastReckon > 220;
+  if (note && slow) note.hidden = false;
+  if (slow) $("out").classList.add("busy");
+  pending = requestAnimationFrame(()=>requestAnimationFrame(()=>{
+    pending = null;
+    const t0 = performance.now();
+    try { reckonAndPaint(); }
+    finally {
+      lastReckon = performance.now() - t0;
+      if (note) note.hidden = true;
+      $("out").classList.remove("busy");
+    }
+  }));
+}
+
+function paintDials(){
   const cfg = readConfig();
   const rg = REGISTERS[regVal];
   $("regnote").textContent = rg.note;
@@ -266,11 +333,18 @@ function render(){
     : `${(dayHours - light).toFixed(1)} h of this day fall after dark — travelled at little over half speed if allowed, `
       + `and waited out until dawn if not.`;
 
+}
+
+function reckonAndPaint(){
+  const cfg = readConfig();
+  const rg = REGISTERS[regVal];
+  const out = $("out");
+
   /* Nothing to reckon yet. An error panel would be a lie — the traveller has
      not asked for anything wrong, only not asked yet — so say so kindly and
      offer a road to start on. */
   if (!cfg.from.trim() || !cfg.to.trim()){
-    MAPR = null; MAP = null; MAPKEY = "";
+    MAPR = null; MAP = null; MAPKEY = ""; setTabFigure("");
     const missing = !cfg.from.trim() && !cfg.to.trim() ? "Both ends are still open"
                   : !cfg.from.trim() ? "No starting place yet" : "No destination yet";
     out.innerHTML = `<div class="blank">
@@ -293,6 +367,7 @@ function render(){
   let r;
   try { r = reckon(cfg); }
   catch (e) {
+    setTabFigure("");
     const sug = (e.suggestions || []);
     out.innerHTML = `<div class="err">
       <b>No place matching “${esc(e.query || e.message)}”.</b>
@@ -308,6 +383,7 @@ function render(){
     return;
   }
   if (r.mountForced) $("mount").value = r.mountUsed;   // never show a mount the register forbids
+  setTabFigure(shortDH(r.expected));
   const names = r.nodes.map(n=>esc(n.name));
   const detour = r.sim.total / r.gc;
   const arrAbs = cfg.departHour + r.expected;
@@ -366,10 +442,11 @@ function render(){
     }).join("")}</tbody>
   </table></div></section>
 
-  <footer>Distances are great-circle lines between town centres, stretched by a sinuosity factor for country where nothing runs straight. Paces are kilometres per hour of actual movement — halts, meals and camp are handled by the rest regime, not folded into the speed. Figures are tuned against documented pre-modern rates: a Roman <em>iter iustum</em> of 30 km, Sigeric's 79-stage walk from Rome to Canterbury at 25 km a day, mounted travel at 50–70 km a day, ox-carts at 25–35. The way across the ground is found by search over a quarter-degree land mask, so a
+  <footer>Distances are great-circle lines between town centres, stretched by a sinuosity factor for country where nothing runs straight. Paces are kilometres per hour of actual movement — halts, meals and camp are handled by the rest regime, not folded into the speed. Figures are tuned against documented pre-modern rates: a Roman <em>iter iustum</em> of 30 km, Sigeric's 79-stage walk from Rome to Canterbury at 25 km a day, mounted travel at 50–70 km a day, ox-carts at 25–35. The way across the ground is found by search over a tenth-of-a-degree land mask, so a
     party walks round a sea rather than over it. Plausible for fiction; not survey data. Round them in prose.</footer>`;
 
   mountMap(r, cfg);
+  wireStrip();
 }
 
 document.querySelectorAll("#register button").forEach(b=>{
