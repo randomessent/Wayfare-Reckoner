@@ -1,0 +1,13 @@
+# Python
+__pycache__/
+*.pyc
+
+# The data pipeline's workings: big intermediates, and the downloaded source
+# datasets. Only the four files in data/ are worth keeping.
+data-build/sources/
+data-build/*.npy
+data-build/places_all.json
+data-build/names.json
+
+# macOS
+.DS_Store
