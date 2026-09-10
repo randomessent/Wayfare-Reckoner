@@ -1,22 +1,53 @@
 /* ---------- the chart ----------
-   Projection is EPSG:3857 (spherical Web Mercator), so the graticule is
-   rectilinear and the terrain zones — which are lat/lon boxes — stay
-   graticule is rectilinear. The coastline is Natural Earth's, generalised
-   to about six kilometres; the ground inside it is painted pixel by pixel
-   from the same tenth-of-a-degree terrain grid the reckoning walks over, so
-   what you see is exactly what was counted.                              */
+   The earth is drawn in EPSG:3857 (spherical Web Mercator), so its graticule
+   is rectilinear. Middle-earth is drawn in its own frame: the ME-DEM team's
+   map is a kilometre grid, and a kilometre grid laid on a globe splays into a
+   trapezoid under any cylindrical projection, so instead the chart shows the
+   map as drawn — ground metres east and north of Hobbiton — which is a
+   perfectly good local projection with the country in the shape everyone
+   knows it by. In both, the ground is painted pixel by pixel from the same
+   tenth-of-a-degree terrain grid the reckoning walks over, so what you see
+   is exactly what was counted.
+
+   A projection here is four functions and a frame. Chart y depends on
+   latitude alone in both, which the ground-painting loop leans on; chart x
+   may depend on both.                                                     */
 
 const R3857 = 6378137;
 const MAXLAT = 85.05112878;
-const mx = lon => R3857 * lon * Math.PI/180;
-const my = lat => R3857 * Math.log(Math.tan(Math.PI/4 + Math.max(-MAXLAT,Math.min(MAXLAT,lat))*Math.PI/360));
-const xlon = x => x / R3857 * 180/Math.PI;
-const ylat = y => (2*Math.atan(Math.exp(y/R3857)) - Math.PI/2) * 180/Math.PI;
+const M_PER_DEG = 111320;
+const ME_LAT = 51.75, ME_LON = -1.26;         // Hobbiton, at the latitude of Oxford
+const PROJECTIONS = {
+  mercator: {
+    x: (lat, lon) => R3857 * lon * Math.PI/180,
+    y: lat => R3857 * Math.log(Math.tan(Math.PI/4 + Math.max(-MAXLAT,Math.min(MAXLAT,lat))*Math.PI/360)),
+    lat: y => (2*Math.atan(Math.exp(y/R3857)) - Math.PI/2) * 180/Math.PI,
+    lon: (x, lat) => x / R3857 * 180/Math.PI,
+    mPerUnit: lat => Math.cos(lat*Math.PI/180),   /* Mercator stretches with latitude */
+    meridians: true,
+  },
+  "middle-earth": {
+    x: (lat, lon) => (lon - ME_LON) * Math.cos(lat*Math.PI/180) * M_PER_DEG,
+    y: lat => (lat - ME_LAT) * M_PER_DEG,
+    lat: y => ME_LAT + y / M_PER_DEG,
+    lon: (x, lat) => ME_LON + x / (Math.cos(lat*Math.PI/180) * M_PER_DEG),
+    mPerUnit: () => 1,
+    meridians: false,                             /* they curve; the parallels are enough */
+  },
+};
+PROJECTIONS.mercator.lim = { x0: PROJECTIONS.mercator.x(0,-179.5), x1: PROJECTIONS.mercator.x(0,179.5),
+                             y0: PROJECTIONS.mercator.y(-82), y1: PROJECTIONS.mercator.y(83) };
+/* the ME-DEM frame is 4,000 km a side once doubled; a little sea round it */
+PROJECTIONS["middle-earth"].lim = { x0: -1.11e6, x1: 3.05e6, y0: -2.17e6, y1: 2.0e6 };
 
-const LIM = { x0: mx(-179.5), x1: mx(179.5), y0: my(-82), y1: my(83) };
+let PROJ = PROJECTIONS.mercator, LIM = PROJ.lim;
+function setProjection(name){
+  PROJ = PROJECTIONS[name] || PROJECTIONS.mercator;
+  LIM = PROJ.lim;
+}
 const MIN_SPAN = 60000;                      // ~40 km of real ground at 45°N
 
-let MAP = null;        // {cx, cy, span} in EPSG:3857 metres
+let MAP = null;        // {cx, cy, span} in chart units
 let MAPR = null, MAPCFG = null, MAPKEY = "";
 
 function clampView(v){
@@ -39,7 +70,7 @@ const MAPH = Math.round(MAPW / MAPASPECT);
 
 function fitToRoute(r){
   let x0=Infinity,x1=-Infinity,y0=Infinity,y1=-Infinity;
-  const touch=(la,lo)=>{ const X=mx(lo), Y=my(la);
+  const touch=(la,lo)=>{ const X=PROJ.x(la,lo), Y=PROJ.y(la);
     x0=Math.min(x0,X); x1=Math.max(x1,X); y0=Math.min(y0,Y); y1=Math.max(y1,Y); };
   for (const s of r.segs){ touch(s.lat0,s.lon0); touch(s.lat1,s.lon1); }
   for (const n of r.nodes) touch(n.lat, n.lon);
@@ -88,12 +119,12 @@ function paintGround(host, v, k, W, H, wantLabels, labelsOut){
 
   for (let py = 0; py < ph; py++){
     const uy = (py + 0.5) * H / ph;
-    const lat = ylat(v.cy - (uy - H/2)/k);
+    const lat = PROJ.lat(v.cy - (uy - H/2)/k);
     const j = Math.min(GH-1, Math.max(0, Math.floor((90 - lat)/GRES)));
     const row = j*GW;
     for (let pxi = 0; pxi < pw; pxi++){
       const ux = (pxi + 0.5) * W / pw;
-      let lon = xlon(v.cx + (ux - W/2)/k);
+      let lon = PROJ.lon(v.cx + (ux - W/2)/k, lat);
       lon = ((lon + 180) % 360 + 360) % 360 - 180;
       const i = Math.min(GW-1, Math.max(0, Math.floor((lon + 180)/GRES)));
       const cell = row + i;
@@ -142,10 +173,12 @@ function drawMap(){
   if (!r || !host) return;
   const W = MAPW, H = MAPH, v = MAP;
   const k = W / v.span;
-  const X = lon => (mx(lon) - v.cx) * k + W/2;
-  const Y = lat => H/2 - (my(lat) - v.cy) * k;
-  const lon0 = xlon(v.cx - v.span/2), lon1 = xlon(v.cx + v.span/2);
-  const lat1 = ylat(v.cy + v.span*H/W/2), lat0 = ylat(v.cy - v.span*H/W/2);
+  const X = (lon, lat) => (PROJ.x(lat, lon) - v.cx) * k + W/2;
+  const Y = lat => H/2 - (PROJ.y(lat) - v.cy) * k;
+  const lat1 = PROJ.lat(v.cy + v.span*H/W/2), lat0 = PROJ.lat(v.cy - v.span*H/W/2);
+  /* where x depends on latitude too, the widest the view gets at either edge */
+  const lon0 = Math.min(PROJ.lon(v.cx - v.span/2, lat0), PROJ.lon(v.cx - v.span/2, lat1));
+  const lon1 = Math.max(PROJ.lon(v.cx + v.span/2, lat0), PROJ.lon(v.cx + v.span/2, lat1));
   const inView = (la,lo) => la>lat0-0.2 && la<lat1+0.2 && lo>lon0-0.3 && lo<lon1+0.3;
 
   const pxw = Math.max(300, (host.clientWidth || 1000));
@@ -156,12 +189,6 @@ function drawMap(){
   const fs = NARROW ? Math.max(1, Math.min(3.9, 1000 / pxw * 1.32))
                     : Math.max(1, Math.min(2.9, 1000 / pxw));
 
-  const path = flat => {
-    let d = "";
-    for (let i = 0; i < flat.length; i += 2)
-      d += (i ? "L" : "M") + X(flat[i]).toFixed(1) + " " + Y(flat[i+1]).toFixed(1);
-    return d + "Z";
-  };
 
   /* ground: the terrain grid itself, one pixel at a time.
      A raster is the honest way to draw an eleven-kilometre grid — the old
@@ -183,7 +210,7 @@ function drawMap(){
     }
     if (lo1 < lon0 - 0.5 || lo0 > lon1 + 0.5 || la1 < lat0 - 0.5 || la0 > lat1 + 0.5) return "";
     for (let i = 0; i < flat.length; i += 2)
-      d += (i ? "L" : "M") + X(flat[i]).toFixed(1) + " " + Y(flat[i+1]).toFixed(1);
+      d += (i ? "L" : "M") + X(flat[i], flat[i+1]).toFixed(1) + " " + Y(flat[i+1]).toFixed(1);
     return d + "Z";
   };
   const minRing = (lon1 - lon0) / 220;          /* skip islets too small to see */
@@ -212,9 +239,10 @@ function drawMap(){
   for (let la = Math.ceil(lat0/step)*step; la <= lat1; la += step)
     grat += `<line x1="0" y1="${Y(la).toFixed(1)}" x2="${W}" y2="${Y(la).toFixed(1)}" class="grat"></line>`
          +  `<text x="4" y="${(Y(la)-3).toFixed(1)}" class="gratlab">${la.toFixed(dec)}°N</text>`;
-  for (let lo = Math.ceil(lon0/step)*step; lo <= lon1; lo += step)
-    grat += `<line x1="${X(lo).toFixed(1)}" y1="0" x2="${X(lo).toFixed(1)}" y2="${H}" class="grat"></line>`
-         +  `<text x="${(X(lo)+4).toFixed(1)}" y="${H-5}" class="gratlab">${Math.abs(lo).toFixed(dec)}°${lo<0?"W":"E"}</text>`;
+  if (PROJ.meridians)
+    for (let lo = Math.ceil(lon0/step)*step; lo <= lon1; lo += step)
+      grat += `<line x1="${X(lo,0).toFixed(1)}" y1="0" x2="${X(lo,0).toFixed(1)}" y2="${H}" class="grat"></line>`
+           +  `<text x="${(X(lo,0)+4).toFixed(1)}" y="${H-5}" class="gratlab">${Math.abs(lo).toFixed(dec)}°${lo<0?"W":"E"}</text>`;
 
   /* the night stops, worked out first so place names can dodge them */
   const march = r.sim.days.filter(d=>d.kind !== "rest");
@@ -224,7 +252,7 @@ function drawMap(){
               : (march.length > slots ? 2 : 1);
   const stopAt = r.sim.days.map(d=>{
     const [la,lo] = positionAt(r.segs, d.cum);
-    return {d, x:X(lo), y:Y(la), on:inView(la,lo)};
+    return {d, x:X(lo,la), y:Y(la), on:inView(la,lo)};
   });
 
   /* settlements, and as many names as will fit */
@@ -245,7 +273,7 @@ function drawMap(){
     const isCamp = camps.has(n);
     if (P_POP[i] < floor && !isCamp && P_KIND[i] !== "u") continue;
     if (!inView(P_LAT[i], P_LON[i])) continue;
-    const x = X(P_LON[i]), y = Y(P_LAT[i]);
+    const x = X(P_LON[i], P_LAT[i]), y = Y(P_LAT[i]);
     if (x < -20 || x > W+20 || y < -20 || y > H+20) continue;
     const big = P_KIND[i] === "c";
     dots += `<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="${big?2:1.4}" class="pdot${big?" big":""}"></circle>`;
@@ -272,11 +300,11 @@ function drawMap(){
   /* the road */
   let pts = "", wetPath = "", wasWet = false;
   r.segs.forEach((s,i)=>{
-    if (i === 0) pts += `M${X(s.lon0).toFixed(1)} ${Y(s.lat0).toFixed(1)}`;
-    pts += `L${X(s.lon1).toFixed(1)} ${Y(s.lat1).toFixed(1)}`;
+    if (i === 0) pts += `M${X(s.lon0,s.lat0).toFixed(1)} ${Y(s.lat0).toFixed(1)}`;
+    pts += `L${X(s.lon1,s.lat1).toFixed(1)} ${Y(s.lat1).toFixed(1)}`;
     if (s.water){
-      if (!wasWet) wetPath += `M${X(s.lon0).toFixed(1)} ${Y(s.lat0).toFixed(1)}`;
-      wetPath += `L${X(s.lon1).toFixed(1)} ${Y(s.lat1).toFixed(1)}`;
+      if (!wasWet) wetPath += `M${X(s.lon0,s.lat0).toFixed(1)} ${Y(s.lat0).toFixed(1)}`;
+      wetPath += `L${X(s.lon1,s.lat1).toFixed(1)} ${Y(s.lat1).toFixed(1)}`;
     }
     wasWet = s.water;
   });
@@ -306,7 +334,7 @@ function drawMap(){
   let ends = "";
   r.nodes.forEach((n,i)=>{
     if (!inView(n.lat, n.lon)) return;
-    const x = X(n.lon), y = Y(n.lat), last = i === r.nodes.length-1, first = i === 0;
+    const x = X(n.lon, n.lat), y = Y(n.lat), last = i === r.nodes.length-1, first = i === 0;
     const half = n.name.length * 3.1 * fs;
     const anchor = x - half < 6 ? "start" : x + half > W - 6 ? "end" : "middle";
     const tx = anchor === "start" ? 6 : anchor === "end" ? W - 6 : x;
@@ -318,8 +346,8 @@ function drawMap(){
   });
 
   /* scale bar — Mercator stretches with latitude, so measure at the middle */
-  const midLat = ylat(v.cy);
-  const mPerUnit = (v.span / W) * Math.cos(midLat*Math.PI/180);
+  const midLat = PROJ.lat(v.cy);
+  const mPerUnit = (v.span / W) * PROJ.mPerUnit(midLat);
   const want = mPerUnit * W * 0.18;
   const pow = Math.pow(10, Math.floor(Math.log10(want)));
   const nice = [1,2,5,10].map(m=>m*pow).reduce((a,b)=> Math.abs(b-want) < Math.abs(a-want) ? b : a);
@@ -459,8 +487,7 @@ function mapShell(r, cfg){
       <button type="button" id="zfit" aria-label="Fit the whole route">⤢</button>
     </div>
     <div class="maptip" id="maptip" hidden></div>
-    <p class="mapnote">Web Mercator (EPSG:3857). The coastline is Natural Earth's, generalised to about six
-      kilometres; the ground inside it is painted straight from the terrain grid the reckoning walks over — a tenth
+    <p class="mapnote">${WORLD.meta.mapNote} the ground inside it is painted straight from the terrain grid the reckoning walks over — a tenth
       of a degree, near enough eleven kilometres — so the colours are the ground that was actually counted, not a
       picture laid over it. Every dot on the road is a night's end${r.sim.rest ? `, and the ringed ones are forced halts` : ``}.
       ${NARROW ? `Drag to pan, pinch to zoom, tap a dot to find it in the itinerary.`

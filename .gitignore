@@ -8,6 +8,7 @@ data-build/sources/
 data-build/*.npy
 data-build/places_all.json
 data-build/names.json
+data-build/middle_earth_preview.png
 
 # macOS
 .DS_Store

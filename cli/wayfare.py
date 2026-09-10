@@ -14,6 +14,18 @@ from __future__ import annotations
 import argparse, json, math, sys, os
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+# The world has to be chosen before the gazetteer is imported, because the
+# gazetteer reads its files at import. --world on the command line wins over
+# WAYFARE_WORLD in the environment; both default to our own earth.
+for _i, _a in enumerate(sys.argv):
+    if _a == "--world" and _i + 1 < len(sys.argv):
+        os.environ["WAYFARE_WORLD"] = sys.argv[_i + 1]
+    elif _a.startswith("--world="):
+        os.environ["WAYFARE_WORLD"] = _a.split("=", 1)[1]
+_DATA = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "data")
+WORLDS = ["earth"] + sorted(d for d in os.listdir(_DATA)
+                            if os.path.isfile(os.path.join(_DATA, d, "grids.json")))
+
 from gazetteer import (PLACES, resolve, resolve_city, zone_at,  # noqa: E402
                        PlaceNotFound, suggest, landmass)
 from gazetteer import nearest_place as gz_nearest  # noqa: E402
@@ -656,7 +668,9 @@ def render(r):
 
 
 def main():
-    p = argparse.ArgumentParser(description="Pre-modern overland travel times in Europe.")
+    p = argparse.ArgumentParser(description="Pre-modern overland travel times, on earth or in Middle-earth.")
+    p.add_argument("--world", default=os.environ.get("WAYFARE_WORLD", "earth"), choices=WORLDS,
+                   help="which world the places are in")
     p.add_argument("--from", dest="origin", required=True)
     p.add_argument("--to", dest="dest", required=True)
     p.add_argument("--mode", default="foot", choices=list(MODES))

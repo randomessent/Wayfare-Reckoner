@@ -23,6 +23,7 @@ table or an app).
 
 | Flag | Values | Default |
 |---|---|---|
+| `--world` | `earth`, `middle-earth` | `earth` |
 | `--from` / `--to` | any city in the gazetteer (case/alias tolerant) | required |
 | `--via` | zero or more waypoints, in order | none |
 | `--mode` | `foot`, `foot_laden`, `horse`, `horse_remount`, `cart` | `foot` |
