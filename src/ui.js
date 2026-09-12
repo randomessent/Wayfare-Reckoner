@@ -1,12 +1,33 @@
 /* ---------- ui ---------- */
 const $ = id => document.getElementById(id);
 const out = $("out");
+
+/* ---------- which world ----------
+   Every world is the same four data files and the same model; switching is
+   swapping the ground under the reckoning. The router's memory of the ground
+   goes with it, and so do the two ends of the journey, which belonged to the
+   old one. */
+const WORLD_KEY = "wayfare.world";
+function loadWorld(key){
+  const w = WORLDS[key] || WORLDS.earth;
+  loadGrids(w); loadPlaces(w); resetRouter(); setProjection(w.meta.proj);
+  MAPR = null; MAP = null; MAPKEY = "";
+  $("worldnote").textContent = w.meta.note;
+  $("world").value = w.meta.key;
+  try { localStorage.setItem(WORLD_KEY, w.meta.key); } catch(e){}
+}
+(function firstWorld(){
+  let want = "earth";
+  try { want = localStorage.getItem(WORLD_KEY) || want; } catch(e){}
+  loadWorld(WORLDS[want] ? want : "earth");
+})();
 window.addEventListener("resize", ()=>{ clearTimeout(window.__rz); window.__rz = setTimeout(render, 220); });
 let restVal = "medium", regVal = "chronicle", nightTouched = false;
 
 /* ---------- typeahead ---------- */
 const KIND_LABEL = {city:"town", town:"town", range:"range", park:"park", forest:"forest",
-                    pass:"pass", water:"water", plain:"plain", coast:"coast", custom:"yours"};
+                    pass:"pass", water:"water", plain:"plain", coast:"coast", custom:"yours",
+                    stronghold:"stronghold", ruin:"ruin", region:"region", marsh:"marsh", ford:"ford"};
 
 function attachTypeahead(id){
   const input = $(id), list = $(id + "-opts");
@@ -45,7 +66,8 @@ function attachTypeahead(id){
       list.innerHTML = items.map(n=>{
         const p = placeInfo(n);
         if (!p) return `<li role="option" data-v="${esc(n)}"><span class="nm">${esc(n)}</span></li>`;
-        const size = p.pop >= 1000 ? ` &middot; ${p.pop.toLocaleString()}` : "";
+        /* Middle-earth's figures are rank, not people; nobody counted them */
+        const size = WORLD.meta.pops && p.pop >= 1000 ? ` &middot; ${p.pop.toLocaleString()}` : "";
         return `<li role="option" data-v="${esc(n)}"><span class="nm">${esc(n)}</span>
           <span class="rg"><b>${KIND_LABEL[p.kind]||p.kind}</b> &middot; ${esc(p.region)}${size}</span></li>`;
       }).join("");
@@ -353,8 +375,7 @@ function reckonAndPaint(){
       reckoning will find a way over the ground between — round the seas, along the
       valleys, and out the far side with a count of the days.</p>
       <div class="egs">
-        ${[["Lyon","Zagreb"],["Sierra de Gredos","Burgos"],["Raleigh","Santa Fe, New Mexico"],
-           ["Samarkand","Kashgar"],["Cairo","Timbuktu"]]
+        ${WORLD.meta.examples
           .map(([a,b])=>`<button type="button" data-a="${esc(a)}" data-b="${esc(b)}">${esc(a)} &rarr; ${esc(b)}</button>`).join("")}
       </div>
     </div>`;
@@ -371,7 +392,7 @@ function reckonAndPaint(){
     const sug = (e.suggestions || []);
     out.innerHTML = `<div class="err">
       <b>No place matching “${esc(e.query || e.message)}”.</b>
-      The gazetteer holds ${PLACE_COUNT.toLocaleString()} settlements, ranges, forests, passes and parks.
+      The gazetteer holds ${PLACE_COUNT.toLocaleString()} ${WORLD.meta.holds}.
       For anywhere else — or anywhere invented — give coordinates like
       <span class="mono">40.66, -4.70</span>, or save it under <em>add a place of your own</em>.
       ${sug.length ? `<div class="chips">${sug.map(s=>`<button type="button" data-sug="${esc(s)}">${esc(s)}</button>`).join("")}</div>` : ""}
@@ -466,6 +487,12 @@ document.querySelectorAll("#rest button").forEach(b=>{
   });
 });
 $("night").addEventListener("change",()=>{ nightTouched = true; render(); });
+$("world").addEventListener("change", ()=>{
+  loadWorld($("world").value);
+  $("from").value = $("to").value = $("via").value = "";
+  paintMine();
+  render();
+});
 
 /* Start afresh. The defaults are whatever the markup shipped with, captured
    before anyone has touched anything, so there is no second list of them to

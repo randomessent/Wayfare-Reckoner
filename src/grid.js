@@ -1,13 +1,17 @@
 /* ---------- the ground, at a tenth of a degree ----------
    Three grids over the same 3600x1800 cells: which are land, what terrain each
    is, and what the country there is called. All three arrive run-length encoded,
-   which is how eleven megabytes of raster becomes two of text. */
-const GRES = GRIDS.res, GW = GRIDS.w, GH = GRIDS.h;
+   which is how eleven megabytes of raster becomes two of text.
+
+   Every world is built on the same frame, so the frame is fixed once and only
+   the grids are swapped when the traveller changes world. */
+const FIRST_WORLD = WORLDS[Object.keys(WORLDS)[0]];
+const GRES = FIRST_WORLD.grids.res, GW = FIRST_WORLD.grids.w, GH = FIRST_WORLD.grids.h;
 const TERRAIN_KEYS = ["plain","farmland","river_plain","river_valley","steppe_plain",
   "steppe_plateau","coastal","coastal_karst","hills","upland","forest_plain","forest_hills",
   "forest_upland","marsh_plain","mountain","high_mountain","savanna","desert","sand_sea",
   "rainforest","taiga","tundra","high_plateau","open_water"];
-const NAME_TABLE = GRIDS.nameTable;
+let NAME_TABLE = null;
 
 function expandAlt(lens, Arr){
   /* runs that alternate 0,1,0,1 — the land mask */
@@ -31,10 +35,18 @@ function expandPairs(vals, lens, Arr){
   return out;
 }
 
-const LAND    = expandAlt(GRIDS.land, Uint8Array);
-const TERRAIN_GRID = expandPairs(GRIDS.terrain[0], GRIDS.terrain[1], Uint8Array);
-const NAME_GRID    = expandPairs(GRIDS.names[0],   GRIDS.names[1],   Uint16Array);
-const COMP_GRID    = expandPairs(GRIDS.comps[0],   GRIDS.comps[1],   Uint8Array);
+let LAND = null, TERRAIN_GRID = null, NAME_GRID = null, COMP_GRID = null, COAST = null;
+function loadGrids(world){
+  const g = world.grids;
+  COAST = world.coast;
+  if (g.res !== GRES || g.w !== GW || g.h !== GH)
+    throw new Error("every world must share the " + GW + "x" + GH + " frame");
+  NAME_TABLE   = g.nameTable;
+  LAND         = expandAlt(g.land, Uint8Array);
+  TERRAIN_GRID = expandPairs(g.terrain[0], g.terrain[1], Uint8Array);
+  NAME_GRID    = expandPairs(g.names[0],   g.names[1],   Uint16Array);
+  COMP_GRID    = expandPairs(g.comps[0],   g.comps[1],   Uint8Array);
+}
 
 function cellIndex(lat, lon){
   const j = Math.min(GH-1, Math.max(0, Math.floor((90 - lat)/GRES)));

@@ -68,6 +68,10 @@ Heap.prototype.pop = function(){
 
 /* ---- the coarse grid: land if any fine cell in it is land ---- */
 let COARSE = null;
+/* everything remembered about the ground is about one world's ground */
+function resetRouter(){
+  COARSE = null; SHORE.clear(); FIELD_CACHE.clear(); ROUTE_CACHE.clear();
+}
 function coarseMask(){
   if (COARSE) return COARSE;
   const out = new Uint8Array(CW*CH);

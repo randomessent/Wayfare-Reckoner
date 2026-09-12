@@ -4,21 +4,14 @@
    sorted by population, which is the whole of the disambiguation rule: ask for
    Springfield and you get the big one. */
 const KINDS = {c:"city", t:"town", r:"range", p:"park", f:"forest", s:"pass",
-               w:"water", n:"plain", o:"coast", u:"custom"};
+               w:"water", n:"plain", o:"coast", u:"custom",
+               k:"stronghold", x:"ruin", g:"region", m:"marsh", d:"ford"};
 
-const P_NAME = [], P_LAT = [], P_LON = [], P_REG = [], P_POP = [],
-      P_KIND = [], P_ALIAS = [];
-(function parse(){
-  const rows = PLACES_TSV.split("\n");
-  for (let k = 0; k < rows.length; k++){
-    const f = rows[k].split("\t");
-    if (f.length < 6) continue;
-    P_NAME.push(f[0]); P_LAT.push(+f[1]); P_LON.push(+f[2]);
-    P_REG.push(+f[3]); P_POP.push(+f[4]); P_KIND.push(f[5]);
-    P_ALIAS.push(f.length > 6 ? f[6] : "");
-  }
-})();
-const NPLACE = P_NAME.length;
+/* The rows of whichever world is loaded. `loadPlaces` fills them; everything
+   below reads them. */
+let P_NAME = [], P_LAT = [], P_LON = [], P_REG = [], P_POP = [], P_KIND = [], P_ALIAS = [];
+let NPLACE = 0, PLACE_COUNT = 0, REGION_TABLE = [], WORLD = null;
+let INDEX = new Map(), BUCKET = new Map(), FOLDED = [];
 
 /* Combining marks, written as escapes: a regex with invisible accents in it
    is a regex one bad copy-paste away from being broken. */
@@ -30,8 +23,20 @@ function fold(s){
 }
 
 /* name -> the best row carrying it, and a coarse bucket for "what is near here" */
-const INDEX = new Map(), BUCKET = new Map(), FOLDED = new Array(NPLACE);
-(function buildIndex(){
+function loadPlaces(world){
+  WORLD = world;
+  REGION_TABLE = world.regions;
+  P_NAME = []; P_LAT = []; P_LON = []; P_REG = []; P_POP = []; P_KIND = []; P_ALIAS = [];
+  const rows = world.placesTsv.split("\n");
+  for (let k = 0; k < rows.length; k++){
+    const f = rows[k].split("\t");
+    if (f.length < 6) continue;
+    P_NAME.push(f[0]); P_LAT.push(+f[1]); P_LON.push(+f[2]);
+    P_REG.push(+f[3]); P_POP.push(+f[4]); P_KIND.push(f[5]);
+    P_ALIAS.push(f.length > 6 ? f[6] : "");
+  }
+  NPLACE = PLACE_COUNT = P_NAME.length;
+  INDEX = new Map(); BUCKET = new Map(); FOLDED = new Array(NPLACE);
   for (let i = 0; i < NPLACE; i++){
     const k = fold(P_NAME[i]);
     FOLDED[i] = k;
@@ -48,14 +53,16 @@ const INDEX = new Map(), BUCKET = new Map(), FOLDED = new Array(NPLACE);
     if (!b) BUCKET.set(bk, b = []);
     b.push(i);
   }
-})();
+  CUSTOM.length = 0;
+  loadCustom();
+}
 
-const PLACE_COUNT = NPLACE;
 function regionOf(i){ return REGION_TABLE[P_REG[i]] || ""; }
 
 /* ---- places the traveller adds themselves ---- */
+/* kept per world: a town invented for Middle-earth has no business in Spain */
 const CUSTOM = [];
-const CUSTOM_KEY = "wayfare.places.v2";
+const customKey = () => (WORLD && WORLD.meta.customKey) || "wayfare.places.v2";
 function customIndex(name){
   const f = fold(name);
   for (let k = 0; k < CUSTOM.length; k++) if (fold(CUSTOM[k].name) === f) return k;
@@ -73,14 +80,14 @@ function pushCustom(c){
 }
 function loadCustom(){
   let raw = null;
-  try { raw = localStorage.getItem(CUSTOM_KEY); } catch(e){ return; }
+  try { raw = localStorage.getItem(customKey()); } catch(e){ return; }
   if (!raw) return;
   try {
     for (const c of JSON.parse(raw)){ CUSTOM.push(c); pushCustom(c); }
   } catch(e){ /* corrupt store — ignore it rather than break the page */ }
 }
 function saveCustom(){
-  try { localStorage.setItem(CUSTOM_KEY,
+  try { localStorage.setItem(customKey(),
     JSON.stringify(CUSTOM.map(c=>({name:c.name, lat:c.lat, lon:c.lon, region:c.region})))); }
   catch(e){}
 }
@@ -99,7 +106,6 @@ function removeCustomPlace(name){
   saveCustom();
 }
 function customPlaces(){ return CUSTOM.slice(); }
-loadCustom();
 
 /* ---- coordinates ---- */
 const COORD_RE = /^\s*(?:([^@:]+?)\s*[@:]\s*)?([-+]?\d{1,2}(?:\.\d+)?)\s*([NnSs])?\s*[,; ]\s*([-+]?\d{1,3}(?:\.\d+)?)\s*([EeWw])?\s*$/;

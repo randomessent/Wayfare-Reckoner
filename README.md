@@ -4,7 +4,7 @@
 
 Give it two places anywhere on earth. It finds a way over the actual ground — around the seas, along the valleys, through the passes — reads the terrain it crosses, decides how far a party can push in a day, and comes back with days and hours plus a night-by-night itinerary.
 
-It was built for a de-modernised Europe: a few surviving paved roads, cart tracks, and a great deal of wilderness between the Iberian Peninsula and the Hungarian plain. It now covers the whole world at the same grain.
+It was built for a de-modernised Europe: a few surviving paved roads, cart tracks, and a great deal of wilderness between the Iberian Peninsula and the Hungarian plain. It now covers the whole world at the same grain — and, at the top of the dials, Tolkien's Middle-earth.
 
 ![The route from the Sierra de Gredos to Zagreb by way of Burgos](docs/screenshot.png)
 
@@ -22,13 +22,15 @@ It is built for a large screen, where the dials sit beside the answer. On a phon
 python3 cli/wayfare.py --from Lyon --to Zagreb --mode horse --rest medium
 python3 cli/wayfare.py --from "Sierra de Gredos" --to Berlin --mode foot --rest low --season winter
 python3 cli/wayfare.py --from Split --to Ancona --boat ferries --json
+python3 cli/wayfare.py --world middle-earth --from Hobbiton --to Rivendell --mode foot
 ```
 
 ## What you can set
 
 | | |
 |---|---|
-| **Where** | any of 170,932 settlements, plus ranges, parks, forests and passes — or bare coordinates, or a place you invent |
+| **Which world** | our own earth, or Middle-earth from the ME-DEM project's map layers |
+| **Where** | any of 170,932 settlements, plus ranges, parks, forests and passes — or bare coordinates, or a place you invent. In Middle-earth, some seven hundred towns, strongholds, ruins, ranges, forests, passes and fords |
 | **How they travel** | on foot, on foot laden, on horseback, with remounts, or by cart |
 | **How hard they push** | unhurried (exploring, a full night's sleep, time to bathe and break camp), purposeful (seven hours' sleep, no daytime rest but watering the horses), or driven (chased, resting as little as they can bear) |
 | **Mounts** | ordinary stock, endurance-bred, exceptional bloodstock, or otherworldly — a Rocinante, a Marengo, a Bucephalus, a Shadowfax |
@@ -67,11 +69,20 @@ Terrain is derived rather than drawn: **ruggedness from ETOPO 2022** (mean eleva
 
 The land mask forces open the narrow waters an eleven-kilometre raster welds shut — Gibraltar, the Bosphorus, the Danish belts, Dover, Messina, Bering and fourteen more — and forces shut the canals nobody in this world dug: Suez and Corinth.
 
+### Middle-earth
+
+The same four files again, under `data/middle-earth/`, built from the GIS layers the [ME-DEM](https://github.com/andrewheiss/ME-GIS) team drew for their elevation model of Tolkien's Middle-earth: the coastline, the lakes, the forests and marshes as polygons, the named places, and the [elevation raster](https://github.com/bburns/Arda) itself. Ruggedness is classed exactly as the earth's is, from that raster; forest and marsh come straight from the layers rather than being guessed; the names of the countries, the settled land, the grasslands and the deserts are hand-drawn outlines in `data-build/me_regions.py`, as Europe's old provinces are for the earth.
+
+Where Middle-earth sits on the globe is Tolkien's own answer: Hobbiton at about the latitude of Oxford, Minas Tirith at about Florence's. The map frame is a kilometre grid, so it is pinned at Hobbiton and laid on the sphere from there — which puts Minas Tirith within half a degree of Florence, and gives the Shire long summer evenings and Forochel short winter days, because daylight in the model comes from latitude. The chart draws that frame as the map everyone knows rather than in Mercator, which would splay it. One honest caveat: the frame's own scale is about half of Tolkien's stated distances, so every coordinate is doubled; Hobbiton to Rivendell then comes out at the 458 miles of Fonstad's atlas.
+
+The population column in `places.tsv` is rank, not people — nobody counted Gondor — and the app does not show it. Cities always earn a dot; ruins only up close.
+
 ### Credits
 
 - **[GeoNames](https://www.geonames.org/)** `cities1000` — licensed [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)
 - **[Natural Earth](https://www.naturalearthdata.com/)** 10m land, lakes and physical region polygons — public domain
 - **[ETOPO 2022](https://www.ncei.noaa.gov/products/etopo-global-relief-model)**, NOAA National Centers for Environmental Information — public domain
+- **[ME-GIS](https://github.com/andrewheiss/ME-GIS)** and the **[Arda](https://github.com/bburns/Arda)** elevation raster — the ME-DEM team (monks, SeerBlue, Redrobes, jvangeld), used with their permission for this personal, non-commercial project
 
 The GeoNames attribution above travels with the data: anyone redistributing `data/places.tsv`, or the app that carries it, needs to carry the credit too.
 
@@ -129,7 +140,7 @@ up the new version on the next push.
 
 **The model.** `cli/wayfare.py` and `src/engine.js` hold the same numbers in two languages. Change one and change the other, or say plainly that only one of them moved.
 
-**The data.** `data-build/README.md` explains the pipeline. You need the source datasets downloaded, and numpy and Pillow installed. This is the slow part and you should not need it unless you want to change how terrain is derived.
+**The data.** `data-build/README.md` explains the pipeline. You need the source datasets downloaded, and numpy and Pillow installed. This is the slow part and you should not need it unless you want to change how terrain is derived. Middle-earth is a separate, quick script — `data-build/build_middle_earth.py` — and its regions are hand-drawn in `data-build/me_regions.py`, which is where to go if a border is in the wrong place.
 
 ## Checking it
 
@@ -139,8 +150,14 @@ python3 cli/selftest.py
 
 About 300 assertions: that pushing harder never arrives later, that every dial moves the answer in the direction it claims to, that the six historical benchmarks still land in range, that every named sea is sea and every named land area is land, and that the terrain grid says something sensible about ground we all know.
 
+```bash
+WAYFARE_WORLD=middle-earth python3 cli/selftest.py
+```
+
+The same again for Middle-earth: the dials, the mask, the landmasses, and three of the book's own journeys as loose bounds.
+
 ## Licence
 
-There isn't one. That means default copyright — the code here is not offered for reuse. The **data** is a separate matter and keeps its own terms whatever happens to the code: GeoNames stays CC BY 4.0, Natural Earth and ETOPO stay public domain.
+There isn't one. That means default copyright — the code here is not offered for reuse. The **data** is a separate matter and keeps its own terms whatever happens to the code: GeoNames stays CC BY 4.0, Natural Earth and ETOPO stay public domain, and the Middle-earth layers stay the ME-DEM team's, who ask to be asked before their data is reused.
 
 If you want people to be able to build on this, adding a `LICENSE` file — MIT is the usual choice — is the way to say so.

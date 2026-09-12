@@ -1,0 +1,690 @@
+Caras Galadhon	49.612	11.031	0	1000000	c	City of the Trees
+Carn Dûm	56.607	5.75	1	1000000	c	Carn Dum
+Dol Amroth	42.631	6.882	2	1000000	c	Dol Amroth castle
+Dol Guldur	49.703	14.57	3	1000000	c	Hill of Sorcery
+Edoras	46.001	7.483	4	1000000	c	Meduseld|Golden Hall
+Forlond	52.318	-9.037	5	1000000	c
+Fornost	53.265	1.774	6	1000000	c	Fornost Erain|Norbury|Deadmen's Dike
+Goblin Gate	52.697	13.299	7	1000000	c	Goblin-town|Goblin Town
+Gundabad	55.538	12.184	8	1000000	c	Mount Gundabad
+Harlond	50.967	-7.291	9	1000000	c
+Helm's Deep	46.492	6.208	4	1000000	c	Hornburg|Helms Deep|The Hornburg
+Isengard	47.665	6.469	10	1000000	c	Orthanc|Angrenost
+Khazad-dûm	49.53	8.083	11	1000000	c	Moria|Mines of Moria|Dwarrowdelf
+Minas Ithil	44.416	15.233	12	1000000	c	Minas Morgul|Tower of the Moon
+Minas Tirith	44.158	13.652	13	1000000	c	Minas Anor|Mundburg|City of Kings
+Mithannúnlond	51.817	-5.985	14	1000000	c
+Mithlond	51.751	-5.835	14	1000000	c	Grey Havens|The Grey Havens
+Mithróonalond	51.69	-5.55	14	1000000	c
+Osgiliath	44.363	14.508	12	1000000	c	Citadel of the Stars
+Pelargir	42.513	12.143	15	1000000	c	Garth of Royal Ships
+Rivendell	52.001	9.49	16	1000000	c	Imladris|Last Homely House
+Sudúri	47.746	-0.666	17	1000000	c
+Tharbad	49.244	2.449	18	1000000	c	Tharbad bridge
+Umbar	35.14	9.102	19	1000000	c	Havens of Umbar|City of the Corsairs
+Amrûnaur	42.285	8.317	2	250000	k
+Angsûl	56.22	6.293	1	250000	k
+Ardûmir	34.735	6.454	19	250000	k
+Balost	48.371	0.606	17	250000	k
+Bar Morthil	40.874	-2.833	20	250000	k
+Barad-dûr	44.989	17.614	21	250000	k	Dark Tower|The Dark Tower|Lugbúrz
+Barad-wath	43.635	17.317	22	250000	k
+Caldûr	35.139	6.399	19	250000	k
+Cameth Brin	52.797	7.419	23	250000	k
+Carach Angren	45.457	16.254	22	250000	k
+Cerin Amroth	49.802	11.065	0	250000	k
+Cirith Ungol	44.539	15.64	22	250000	k
+Creb Durga	48.761	-0.121	18	250000	k
+Dale	54.179	21.294	24	250000	k	Kingdom of Dale
+Dunharrow	45.609	7.319	25	250000	k	Hold of Dunharrow|Firienfeld
+Durthang	45.599	15.299	12	250000	k
+Earost	42.349	2.64	26	250000	k
+Eldanar	55.146	5.843	1	250000	k
+Erädas	35.553	6.914	19	250000	k
+Galenhirost	43.457	6.099	27	250000	k
+Halls of Thranduil	53.631	20.212	24	250000	k	Thranduil's Halls|Woodland Realm|Elvenking's Halls|Halls of the Elven King
+Isigir	35.409	7.378	19	250000	k
+Korb Ugata	39.493	12.527	28	250000	k
+Ligr Wodaize Berne	63.082	13.986	29	250000	k
+Lómost	42.242	2.341	30	250000	k
+Marös	35.26	7.804	19	250000	k
+Minas Arthor	43.57	13.027	31	250000	k
+Minas Brethil	43.337	11.554	15	250000	k
+Minas Dûrlith	45.11	19.083	21	250000	k
+Minas Girithlin	48.934	-2.32	17	250000	k
+Morannon	45.906	15.755	22	250000	k	Black Gate|The Black Gate|Morannon Gate
+Morkai	55.625	7.229	1	250000	k
+Ostigurth	44.067	18.291	21	250000	k
+Pellardur	34.817	8.187	19	250000	k
+Penmorva	53.736	7.178	32	250000	k
+Pinnornost	44.105	3.562	33	250000	k
+Shadún	55.402	7.355	1	250000	k
+Sárathondost	43.56	2.573	27	250000	k
+Tharogrondost	41.488	-0.897	20	250000	k
+Advalinda	43.011	0.832	27	80000	t
+Ammu Khand	40.722	32.622	34	80000	t
+Amon Eithel	40.398	12.539	35	80000	t
+An Pharaz	37.206	10.014	36	80000	t
+An Rulin	38.116	10.552	36	80000	t
+An Sakal	39.938	10.698	35	80000	t
+An Tarim	37.485	10.342	36	80000	t
+An Zalim	37.656	11.949	36	80000	t
+Ankruz	35.219	27.654	37	80000	t
+Annodrûn	42.119	1.121	30	80000	t
+Annogwain	43.901	2.281	27	80000	t
+Annon Baran	49.202	-3.52	14	80000	t
+Annúlond	42.262	1.115	30	80000	t
+Athrad Onodló	46.763	9.643	25	80000	t
+Ausk Darmaka	40.122	11.378	35	80000	t
+Bar Lithryn	45.591	19.067	21	80000	t
+Bar Malduin	40.588	14.224	35	80000	t
+Bardúath	41.767	15.634	38	80000	t
+Bogath	40.311	21.023	28	80000	t
+Brafenas	36.328	23.784	39	80000	t
+Bree	51.773	1.037	40	80000	t	Bree-town|Prancing Pony
+Buhr Ailgra	50.699	20.546	41	80000	t
+Buhr Fram	54.768	14.259	7	80000	t
+Buhr Widu	50.556	18.972	41	80000	t
+Bur Bal	36.479	9.26	37	80000	t
+Calembel	44.506	9.378	42	80000	t
+Caras Celairnen	53.03	-3.283	14	80000	t
+Cillien	48.7	5.856	43	80000	t
+Cor Wilishar	49.747	-1.897	18	80000	t
+Corgonin	43.355	6.492	2	80000	t
+Dunlostir	46.756	7.059	4	80000	t
+Edhellond	42.827	6.874	2	80000	t
+Eithel Thurin	40.878	10.44	35	80000	t
+Enmahadh	38.017	22.435	28	80000	t
+Ershawar	40.571	20.28	28	80000	t
+Esgaroth	53.246	21.305	24	80000	t	Lake-town|Laketown|Lake Town
+Estomar	54.513	-11.904	5	80000	t
+Ethring	44.225	9.704	42	80000	t
+Fanuilond	42.063	10.104	33	80000	t
+Feah	37.49	18.789	28	80000	t
+Fennas Drúnin	50.528	5.432	11	80000	t
+Gaersûl	42.207	11.251	33	80000	t
+Gizar	40.02	18.864	28	80000	t
+Glanhir	43.14	7.641	2	80000	t
+Gobel Ancalimon	38.526	13.003	36	80000	t
+Gobel Mirlond	39.581	10.707	28	80000	t
+Greenfields	52.568	-1.141	44	80000	t
+Has Adri	39.842	10.142	28	80000	t
+Has Annun	40.222	10.137	28	80000	t
+Has Yayb	39.556	11.687	35	80000	t
+Hobbiton	51.75	-1.26	44	80000	t	Bag End|Bagshot Row
+Homela	57.974	1.492	14	80000	t
+Hyvät Kalat	63.849	15.587	29	80000	t
+Iantras	42.862	4.994	27	80000	t
+Imak Peh	35.785	26.956	39	80000	t
+Imlad Carnen	40.102	14.899	28	80000	t
+Jonprok	35.425	29.177	37	80000	t
+Kas Auchel	40.048	19.889	28	80000	t
+Kas Shadoul	38.633	11.103	36	80000	t
+Kas Shafra	37.156	8.992	37	80000	t
+Kiba	38.537	10.144	36	80000	t
+Koponzho	35.38	30.189	37	80000	t
+Korb Chelkar	39.867	17.686	28	80000	t
+Korondaj	37.721	18.854	28	80000	t
+Kruk Azhanna	36.491	27.517	37	80000	t
+Kruk Boyadla	38.102	23.014	28	80000	t
+Kruk Datmen	36.864	24.098	39	80000	t
+Kruk Mahur	38.627	21.419	28	80000	t
+Kupsha	40.351	17.086	28	80000	t
+Kyzilkum	41.214	23.645	34	80000	t
+Laorki	38.669	29.588	45	80000	t
+Larach Duhnnan	48.23	3.518	46	80000	t
+Layotam	36.741	25.962	39	80000	t
+Lildomar	49.689	-9.078	9	80000	t
+Linhir	42.511	9.976	47	80000	t
+Litash	55.23	10.002	1	80000	t
+Lond Galen	42.562	3.764	27	80000	t
+Lond Telerion	50.975	-6.578	9	80000	t
+Londoles	55.446	-9.668	5	80000	t
+Maethelburg	53.434	14.423	7	80000	t
+Malhor	56.524	-3.993	14	80000	t
+Maresh	36.436	25.646	39	80000	t
+Methir	41.483	10.636	33	80000	t
+Michel Delving	51.472	-2.122	44	80000	t	Michel Delving on the White Downs
+Mikarin Peh	37.444	22.247	28	80000	t
+Mirimor	52.628	-9.775	5	80000	t
+Mulkan Kaupunki	57.317	-4.198	14	80000	t
+Nothva Rhaglaw	53.147	6.091	23	80000	t
+Nûrumurl	42.037	16.3	22	80000	t
+Oatbarton	52.129	-0.893	44	80000	t
+Onodrith	46.326	9.695	48	80000	t
+Ossarnen	44.886	9.365	42	80000	t
+Oud Ilaz	39.646	16.612	28	80000	t
+Ovatharac	37.58	25.839	37	80000	t
+Parzee	37.846	20.216	28	80000	t
+Pieni Satama	60.638	-2.563	29	80000	t
+Puolihmisten Satama	58.598	2.784	49	80000	t
+Ramlond	39.087	11.584	28	80000	t
+Rendûl	44.399	6.988	50	80000	t
+Rond Rhandir	43.946	5.607	51	80000	t
+Rondalph	42.915	5.698	27	80000	t
+Rood	53.081	0.526	6	80000	t
+Rul	43.306	18.143	52	80000	t
+Ruskea Vene	58.264	3.18	14	80000	t
+Sackville	50.902	-1.34	44	80000	t
+Serelond	42.72	3.573	27	80000	t
+Sook Akhor	36.479	8.403	37	80000	t
+Sook Oda	38.665	9.576	36	80000	t
+Spathlin	43.452	8.56	47	80000	t
+Sturlutza Khand	37.996	26.152	37	80000	t
+Talazhan	37.877	21.053	28	80000	t
+Tereze	35.295	27.056	37	80000	t
+Tharven	38.901	12.837	28	80000	t
+Thrijha Peh	37.999	15.081	36	80000	t
+Tir Ethraid	41.824	13.962	12	80000	t
+Tir Iower	52.036	-8.441	5	80000	t
+Tirith Amrun	38.673	15.395	36	80000	t
+Toresk	35.487	28.339	37	80000	t
+Trijha Peh	36.499	22.442	39	80000	t
+Ubesesh	41.805	24.426	34	80000	t
+Ulurtsu Nurn	42.511	17.951	52	80000	t
+Vasaran Ahjo	64.566	16.012	29	80000	t
+Vinyarhrod	53.375	-9.893	5	80000	t
+Zhaneen	36.589	23.959	39	80000	t
+Archet	51.8	1.346	40	20000	t
+Beorn's Hall	52.436	14.361	7	20000	t	Beorn's house|Beorn's House
+BrackenBorings	52.02	-0.573	44	20000	t
+Bucklebury	51.423	-0.197	44	20000	t
+Bywater	51.761	-1.036	44	20000	t
+Combe	51.851	1.247	40	20000	t
+Flynettle	51.346	-0.378	44	20000	t
+Frogmorton	51.719	-0.451	44	20000	t
+Galibur	42.113	8.092	2	20000	t
+Gamwich	52.12	-2.807	44	20000	t
+Greenholm	51.432	-2.943	44	20000	t
+Hardbottle	51.066	-1.816	44	20000	t
+Haysend	51.37	-0.201	44	20000	t
+Kuska	55.552	6.973	1	20000	t
+Leiri	58.712	1.529	49	20000	t
+Little Delving	51.789	-2.282	44	20000	t
+Long Cleeve	52.328	-1.971	44	20000	t
+Longbottom	51.011	-1.228	44	20000	t
+NeedleHole	51.878	-1.878	44	20000	t
+Newbury	51.628	0.044	44	20000	t
+Nobottle	51.812	-1.802	44	20000	t
+Overhill	51.837	-1.286	44	20000	t
+Pincup	51.427	-1.027	44	20000	t
+R.Thistle Brook	51.288	-0.833	44	20000	t
+Rushey	51.461	-0.306	44	20000	t
+Scary	51.935	-0.437	44	20000	t
+Staddle	51.776	1.23	40	20000	t
+Stock	51.66	-0.245	44	20000	t
+Tighfield	52.039	-2.554	44	20000	t
+Tookbank	51.537	-1.423	44	20000	t
+Tuckborough	51.501	-1.056	44	20000	t
+Waterbury	51.813	-0.18	44	20000	t
+Waymeet	51.659	-1.484	44	20000	t
+Whitfurrows	51.747	-0.167	44	20000	t
+Whitwell	51.494	-1.556	44	20000	t
+Willowbottom	51.262	-0.522	44	20000	t
+Woodmen-town	51.594	15.36	53	20000	t
+Anarmath	52.996	-10.551	5	6000	t
+Anhaman	50.891	-8.174	9	6000	t
+Bareketta	53.646	-0.187	6	6000	t
+Crickhollow	51.502	-0.104	44	6000	t
+Mindolhendi	56.127	-8.789	5	6000	t
+Rhosgobel	50.82	14.499	7	6000	t	Radagast's house
+Tarmabar	52.728	-1.999	6	6000	t
+Toronost	55.086	-11.816	5	6000	t
+Yaunamando	52.204	-8.884	5	6000	t
+Achrond	65.439	-20.287	29	3000	x
+Amon Anlug	63.123	8.052	29	3000	x
+Amon Dîn	44.513	13.874	13	3000	k
+Amon Hen	46.399	13.33	54	3000	k	Hill of Sight|Seat of Seeing
+An Côsa Brâs	44.133	-1.089	20	3000	x
+Andrath	50.993	1.076	18	3000	x
+Annúminas	53.133	-0.754	6	3000	x	Annuminas
+Bar-i-Dongorath	55.387	2.483	6	3000	k
+Calenhad	45.153	11.569	13	3000	k
+Caras Amarth	53.399	16.89	53	3000	x
+Cargash	55.49	6.283	1	3000	k
+Cirith-i-Nudevyn	65.98	-1.495	29	3000	x
+Cor Angálaladh	50.575	18.296	41	3000	x
+Doors of Durin	49.489	8.007	11	3000	k	West-gate of Moria|Hollin Gate|Gate of Moria
+Ei Missä	66.268	-18.231	29	3000	x
+Eilenach	44.579	13.481	13	3000	k
+Eithel Morgoth	65.428	0.616	29	3000	x
+Endil	41.668	7.297	2	3000	k
+Erech	45.195	8.03	50	3000	x	Stone of Erech|Hill of Erech
+Erelas	44.868	12.546	13	3000	k
+Halifirien	45.197	11.151	13	3000	k
+Herubar Gûlar	52.299	7.115	16	3000	x
+Itämuurit	66.767	-14.945	29	3000	x
+Khurd	33.741	5.535	26	3000	x
+Kord Zallak	37.506	9.513	36	3000	x
+Kukkakylä	64.604	-20.009	29	3000	x
+Kylmätalo	60.376	-3.623	29	3000	x
+Lochen	44.178	11.994	15	3000	x
+Londaroth	52.992	21.642	24	3000	x
+Min-Rimmon	44.971	12.12	13	3000	k
+Mindil Kepich	57.071	1.516	14	3000	k
+Mordrach	53.111	-9.44	5	3000	k
+Morhost	66.465	-0.557	29	3000	x
+Nardol	44.748	12.981	13	3000	k
+Olormandor	53.795	-7.901	5	3000	k
+Ost-in-Edhil	49.074	5.387	43	3000	x
+Pendrath na-Udûn	66.823	-0.575	29	3000	x
+Ro-Melborn	53.561	1.687	6	3000	k
+Sininen Tomu	62.974	0.289	29	3000	x
+Suul-Dhurn	34.097	7.48	37	3000	x
+Tarkonul	41.995	17.2	52	3000	k
+Tim-i-Coreg	42.917	0.169	20	3000	x
+Tyhjä Karhuntalo (Bernastath)	58.444	5.564	55	3000	x
+Vamag	36.022	7.01	19	3000	x
+Veistyl Muurit	60.921	6.134	29	3000	x
+Weathertop	51.908	3.494	14	3000	k	Amon Sûl|Amon Sul
+Erdol	49.089	-7.783	26	2000	x
+Haudh-i-Naug	42.836	16.02	22	2000	x
+Haudh-in-Gwanûr	41.769	13.607	12	2000	x
+Sammath Naur	44.998	16.907	21	2000	k	Chambers of Fire|Cracks of Doom
+Umb Dolen	45.012	3.797	50	2000	x
+Aeglir Arvethed	64.198	3.106	29	0	r
+Aelinann	53.618	20.995	24	0	m
+Agasha Dag	49.797	30.613	56	0	f
+Aksa Ruin	55.54	11.505	57	0	s
+Amon Thyryn	53.261	13.698	7	0	r
+Andquetto	49.254	-7.603	58	0	g
+Andrast	40.918	-1.863	20	0	g
+Anfalas	42.842	4.258	27	0	g
+Angirith	55.38	10.754	1	0	s
+Angmar	55.766	8.804	1	0	g
+Angmar	56.173	7.907	1	0	g	Witch-realm of Angmar
+Angálaladh	51.194	16.887	53	0	g
+Anórien	45.209	12.867	13	0	g
+Apariath	52.078	-10.05	5	0	g
+Arat Agmir	37.165	11.561	36	0	g
+Ardulyalinya	50.507	-7.723	9	0	g
+Argonath	46.686	13.65	54	0	g	Pillars of the Kings|Gate of Kings
+Aron Úvanimin	43.938	1.632	27	0	f
+Arthedain	53.424	0.234	6	0	g
+Arthrad Iaur	52.253	14.405	7	0	d
+Arysis	36.026	24.018	39	0	g
+Ascahiriand	52.722	-8.121	5	0	g
+Aug Lamedon	43.94	9.931	15	0	g
+Barl Syrnac	60.828	41.539	29	0	g
+Barrow Downs	51.341	0.911	40	0	r
+Baugatsor-i-Sauron	45.217	16.393	21	0	n
+Bay of Belfalas	38.836	5.753	26	0	o	Belfalas bay
+Belfalas	41.504	7.939	2	0	g
+Bindbale Wood	51.961	-1.374	44	0	f
+Bridge Fields	51.85	-0.128	44	0	g
+Bucklebury Ferry	51.502	-0.248	44	0	d	The Ferry
+Bywater Pool	51.735	-0.968	44	0	w
+Cabed Araheledh	44.972	2.775	59	0	g
+Cair Andros	44.85	14.548	12	0	o
+Cape of Andrast	40.902	-2.59	20	0	o	Ras Morthil
+Caradhras	49.87	8.678	8	0	r
+Caranhram Nurn	41.274	19.184	60	0	g
+Cardolan	49.537	-0.01	18	0	g
+Carrock	52.534	14.161	7	0	o	The Carrock
+Celanoriand	56.068	-9.901	5	0	g
+Celebdil	49.642	8.584	8	0	r
+Chelkar	40.38	19.021	28	0	g
+Chetwood	51.921	1.358	40	0	f
+Choil Caerdh	48.07	5.315	25	0	f
+Cirith Aranlanthir	42.099	-0.501	20	0	s
+Cirith Auris	55.715	24.264	61	0	s
+Cirith Dunrandir	42.362	7.852	2	0	s
+Cirith Gorgor	45.932	15.971	22	0	s	Haunted Pass
+Cirith Himninond	55.732	17.219	62	0	s
+Cirith Iaur	43.396	0.502	20	0	s
+Cirith Mithlin	55.65	16.116	62	0	s
+Cirith Nimrais	45.34	1.593	59	0	s
+Coldfells	53.635	10.503	8	0	r
+Cross-roads of the Fallen King	43.812	14.9	12	0	d	Cross-roads|Crossroads of the Fallen King
+Crossings of Poros	41.714	14.022	12	0	d	Athrad Poros|Poros crossing
+Cóturam	50.521	-2.133	18	0	r
+Cûm Taran	42.449	8.44	2	0	g
+Dagorlad	46.535	16.319	63	0	g	Battle Plain
+Dead Marshes	46.636	15.037	64	0	m	The Dead Marshes
+Den Lóke	55.741	12.673	8	0	s
+Den Nurn	43.706	17.95	21	0	s
+Derndingle	47.705	7.608	25	0	g
+Dimrill Dale	49.72	9.12	8	0	g
+Dimrill Stair	49.768	9.108	8	0	s
+Dol Ereb	51.679	-9.672	9	0	r
+Doncirith	52.665	13.581	7	0	s
+Dor Firnen	48.411	12.356	65	0	d
+Dor Rhunen	47.814	18.112	41	0	g
+Dor-en-Ernil	42.691	9.211	47	0	g
+Dorwinion	50.027	24.985	66	0	g
+Drúadan Forest	44.728	13.358	13	0	f	Druadan Forest|Tawar-in-Drúedain
+Drúwaith Iaur	45.769	2.586	59	0	g
+Dunfearan	48.394	4.99	43	0	g
+Dunland	49.233	5.312	43	0	g	Dunlending country
+E Gynd	43.837	-0.826	20	0	m
+E Naith	49.471	10.692	0	0	g
+Ehwathrumavuld	50.19	21.589	41	0	g
+Eithel Morgoth	65.483	1.103	29	0	r
+Emyn Arnen	43.818	14.256	12	0	r
+Emyn Beriad	51.908	-4.023	14	0	r
+Emyn Guldur	49.628	15.544	3	0	r
+Emyn Muil	47.142	14.553	64	0	r
+Emyn Nimbrith	57.68	2.264	14	0	r
+Emyn Uiel	53.853	-0.975	6	0	r
+Emyn-i-Thang	52.437	16.607	53	0	r
+Emyn-nu-Fuin	52.035	19.647	41	0	r
+En Egledil	51.24	6.548	14	0	n
+En Eredoriath	51.579	4.972	14	0	n
+Enedwaith	47.538	3.477	46	0	g
+Ennyrin Sirion	52.935	-15.823	26	0	o
+Entwash mouths	45.842	12.771	13	0	m	Mouths of Entwash
+Entyin-in-Onodló	45.82	12.747	13	0	m
+Ephel Duath	43.681	15.428	22	0	r	Mountains of Shadow|Ephel Dúath
+Erebor	54.292	21.517	24	0	r	Lonely Mountain|The Lonely Mountain
+Ered Angûrath	44.056	18.867	21	0	r
+Ered Harmal	38.612	31.597	26	0	r
+Ered Lithui	45.54	17.785	21	0	r	Ash Mountains|Mountains of Ash
+Ered Luin	57.203	-6.61	14	0	r	Blue Mountains|The Blue Mountains
+Ered Luin	55.484	-6.987	14	0	r	Blue Mountains|The Blue Mountains
+Ered Mithrin	55.869	19.306	62	0	r	Grey Mountains|The Grey Mountains
+Ered Muil	64.707	6.99	29	0	r
+Ered Nimrais	45.519	6.902	50	0	r	White Mountains|The White Mountains
+Ered Rhivamar	65.626	-8.853	29	0	r
+Eregion	49.806	6.141	11	0	g
+Eregwath	43.102	16.438	22	0	r
+Eriador	50.31	1.409	18	0	g	The Lone-lands
+Eryn Vorn	48.312	-3.472	17	0	f
+Estoriand	54.622	-11.652	5	0	g
+Ettenmoors	53.859	8.24	32	0	n
+Everdalf	59.466	7.327	55	0	g
+Fangorn	47.947	8.758	67	0	f	Fangorn Forest|Entwood
+Fanuidhol	49.809	9.411	8	0	r
+Far Harad	34.558	12.067	37	0	g
+Firien Wood	45.281	10.81	50	0	f
+Ford of Bruinen	51.969	9.269	14	0	d	Bruinen ford|Ford of Rivendell
+Ford of Celduin	52.289	21.438	41	0	d
+Fords of Isen	46.889	6.024	4	0	d	Isen fords|Ford of Isen
+Forithilien	45.756	14.739	12	0	g
+Forlindon	53.918	-10.194	5	0	g
+Forochel	59.227	1.692	49	0	g	Cape of Forochel|Icebay of Forochel
+Forodwaith	60.844	5.527	29	0	g	Northern Waste|Northern Wastes
+Forovirkain	56.58	14.815	62	0	g
+Gaer Dûrlith	44.762	18.665	21	0	n
+Gap of Rohan	47.19	6.25	4	0	s	The Gap|Gap of Isen
+Gathod	46.951	25.853	56	0	g
+Gebir Luin	50.132	-3.771	14	0	r
+Girdley Island	51.82	0.053	44	0	g
+Gladden Fields	51.532	13.246	68	0	m
+Gondalf	65.804	-11.007	29	0	g
+Gondor	43.776	10.784	15	0	g	Kingdom of Gondor|South Kingdom
+Gorgoroth	44.66	17.458	21	0	g	Plateau of Gorgoroth
+Greater Khand	40.928	26.302	34	0	g
+Grey Havens	51.943	-5.399	14	0	g	Mithlond harbour
+Grey Wood	44.854	12.275	13	0	f	Firien Wood
+Gundalok	55.344	12.177	8	0	g
+Gwathiraug	43.661	16.589	22	0	r
+Hairaverkien	44.594	2.828	50	0	g
+Harad	38.386	13.273	36	0	g	The South|Sunlands
+Haradwaith	36.876	11.158	37	0	g
+Harithilien	42.559	13.825	12	0	g
+Harlindon	50.334	-8.31	9	0	g
+Harnen	38.127	12.024	36	0	g
+Harondor	40.892	12.231	35	0	g
+Haruzan	38.012	16.286	36	0	g
+Heahyrme	45.351	6.141	50	0	r
+Henneth Annûn	45.194	14.658	12	0	g
+High Pass	52.699	12.838	7	0	s	Pass of Imladris|Cirith Forn en Andrath
+Himring	56.037	-12.23	5	0	o
+Hith Lainen	48.427	8.957	67	0	g
+Iron Hills	54.455	25.02	69	0	g	Emyn Engrin
+Isenmouthe	45.465	16.263	22	0	s	Carach Angren
+Isles of Shegga	38.132	8.775	28	0	o
+Ithilien	44.136	14.362	12	0	g	Garden of Gondor
+Järvimaa	61.913	8.448	29	0	g
+Kajbah	39.157	20.41	28	0	g
+Khand	41.313	29.742	34	0	g
+Khand Inferior	39.292	29.387	34	0	g
+Khand Superior	43.29	32.042	34	0	g
+Laimandhon	50.77	-9.119	9	0	g
+Lake Evendim	53.298	-0.928	6	0	w	Nenuial|Evendim
+Lamedon	44.561	8.816	42	0	g
+Last Bridge	51.87	5.986	23	0	d	Bridge of Mitheithel|Iant Methed
+Lebennin	42.824	11.789	15	0	g
+Liddardhon	50.157	-9.257	9	0	g
+Lindalf	63.177	10.265	29	0	g
+Lindomen	50.616	-8.847	9	0	g
+Lindon	51.861	-8.997	70	0	g
+Loeg Balimur	42.255	11.562	33	0	m
+Logathavuld	53.244	26.711	41	0	g
+Long Lake	53.49	21.622	24	0	w	Lake of Esgaroth
+Lossarnach	43.893	13.372	31	0	g
+Lower Khand	39.389	25.696	71	0	g
+Lurmsakun	37.618	22.657	28	0	g
+Lódalf	56.612	-3.58	14	0	g
+Lórien	49.781	10.511	0	0	f	Lothlórien|Lothlorien|Golden Wood|Laurelindórenan
+Methedras	47.879	6.61	10	0	r
+Metsästäjöiden Saari	63.41	-18.369	29	0	o
+Midgewater Marshes	51.889	1.929	40	0	m
+Minheldolath	62.755	-10.993	29	0	g
+Minhiriath	48.314	-1.247	17	0	g
+Mirkwood	53.529	17.262	53	0	f	Greenwood|Greenwood the Great|Eryn Lasgalen|Taur-nu-Fuin
+Mirrormere	49.675	9.245	8	0	w
+Misty Mountains	52.163	12.31	7	0	r	Hithaeglir|The Misty Mountains
+Mordor	43.713	18.983	72	0	g
+Morva Tarth	53.564	7.09	23	0	m
+Morwen	54.406	-16.937	26	0	o
+Mount Doom	44.99	16.89	21	0	r	Orodruin|Amon Amarth|Mt Doom
+Mount Gram	55.064	8.209	1	0	r
+Mouths of Anduin	41.8	10.285	33	0	o	Ethir Anduin|Anduin delta
+Mänoriand	54.852	-10.202	5	0	g
+Nan Anduin	50.519	12.26	7	0	g
+Nan Angmar	55.41	8.726	1	0	g
+Nan Curunír	47.439	6.351	10	0	g
+Nan Enqui	41.748	-0.838	20	0	g
+Nan Lefnui	43.387	1.065	27	0	g
+Nan Lóke	56.117	11.788	73	0	g
+Nan Requain	42.886	9.304	47	0	g
+Nan-i-Feryth	44.375	3.655	50	0	g
+Nanduhirion	49.607	9.304	8	0	g
+Narthalf	64.379	-1.166	29	0	g
+Near Harad	39.464	13.495	28	0	g
+Nen Hithoel	46.557	13.457	54	0	w	Lake of Nen Hithoel
+Nenuial	53.307	-0.929	6	0	w
+Nimram	50.844	-1.982	44	0	r
+Nin-in-Eilph	49.123	2.998	18	0	m
+Nindalf	45.96	13.769	74	0	m
+North Downs	53.868	2.095	6	0	r
+Numeriador	54.613	-5.842	14	0	g
+Nurn	42.793	17.679	52	0	g
+Oglorb Glacier	55.646	11.793	8	0	g
+Oiolad	53.923	4.279	6	0	g
+Old Forest	51.297	0.201	44	0	f	The Old Forest
+Overbourne Marshes	51.125	-0.428	44	0	m
+Parth Celebrant	48.766	11.69	65	0	n
+Parth Feren	42.922	2.044	27	0	n
+Parth Galen	46.489	13.407	54	0	n
+Parth Gurthil	56.007	9.811	1	0	n
+Parth Iaur	43.796	-0.479	20	0	n
+Parth-i-Certémar	42.994	-0.719	20	0	n
+Pelennor Fields	44.225	13.935	13	0	n	Pelennor|Fields of Pelennor
+Pelondolin	55.939	-16.679	26	0	o
+Perth Maiwin	41.693	-1.683	20	0	n
+Perth Ulwyn	43.857	16.403	21	0	n
+Pezarsan	38.338	18.3	28	0	g
+Pin Hingren	39.123	13.254	28	0	g
+Pinnath Ceren	50.825	0.069	44	0	r
+Pinnath Gelin	43.453	5.069	27	0	g
+Pinnath Gelin	51.414	-1.344	44	0	r
+Pinnath Luin	50.489	-3.553	14	0	r
+Pitkämiehen Saari	65.291	-18.103	29	0	o
+Pûkel hymne	45.269	2.611	59	0	g
+Rammas Formen	55.537	1.544	6	0	g
+Rast Losnaeth	62.1	-2.247	29	0	g
+Rauros	46.303	13.463	54	0	g	Falls of Rauros
+Redhorn Pass	49.849	8.744	8	0	s	Redhorn Gate|Pass of Caradhras|Caradhras pass
+Rhovanion	49.009	19.599	41	0	g
+Rhudaur	52.783	7.909	23	0	g
+Rhûn	49.621	33.781	56	0	g	Rhun|The East
+Rist Angsiril	54.539	9.545	32	0	s
+River Adorn	46.137	4.158	59	0	w	Adorn
+River Ahasiril	45.155	-0.237	75	0	w	Ahasiril
+River Airasir	50.938	-6.169	14	0	w	Airasir
+River Airasir	50.171	-5.417	14	0	w	Airasir
+River Aldlad	45.868	9.901	48	0	w	Aldlad
+River Anduin	50.495	12.912	7	0	w	Anduin
+River Anduin	45.245	14.407	12	0	w	Anduin
+River Anghir	57.046	3.226	14	0	w	Anghir
+River Angren	46.274	0.497	59	0	w	Angren
+River Angren	46.743	5.696	4	0	w	Angren
+River Angsir	56.294	5.153	1	0	w	Angsir
+River Angsiril	55.875	8.012	1	0	w	Angsiril
+River Annabrith	33.967	6.368	37	0	w	Annabrith
+River Annúduin	55.084	-5.448	14	0	w	Annúduin
+River Arodwiel	45.761	10.49	48	0	w	Arodwiel
+River Auchel	40.902	22.364	28	0	w	Auchel
+River Baranduin	49.955	-1.17	18	0	w	Baranduin
+River Belesîr	50.389	-5.607	14	0	w	Belesîr
+River Brithir	50.251	-7.074	76	0	w	Brithir
+River Bruinen	51.462	8.033	14	0	w	Bruinen
+River Calenhir	43.501	6.67	2	0	w	Calenhir
+River Calgalen	43.603	4.076	51	0	w	Calgalen
+River Caraghír	42.797	0.239	20	0	w	Caraghír
+River Carnen	53.395	24.728	41	0	w	Carnen
+River Celduin	51.749	22.495	41	0	w	Celduin
+River Celebrant	49.346	10.072	0	0	w	Celebrant
+River Celos	52.206	-8.453	5	0	w	Celos
+River Celos	43.83	12.261	15	0	w	Celos
+River Certhas	66.322	7.121	29	0	w	Certhas
+River Cilstrem	48.633	6.777	77	0	w	Cilstrem
+River Ciril	43.911	8.521	42	0	w	Ciril
+River Dimarnon	55.839	-8.482	5	0	w	Dimarnon
+River Dior	49.661	-5.735	78	0	w	Dior
+River Dunfearan	48.162	2.882	46	0	w	Dunfearan
+River Dúaduin	42.164	16.722	22	0	w	Dúaduin
+River Ehdhuin	50.664	-8.095	9	0	w	Ehdhuin
+River Emynen	52.58	20.642	41	0	w	Emynen
+River Enedhîr	46.816	0.711	46	0	w	Enedhîr
+River Enqui	41.929	-0.582	20	0	w	Enqui
+River Erui	43.374	13.446	12	0	w	Erui
+River Everhir	58.44	3.721	14	0	w	Everhir
+River Ferensiril	42.667	1.984	30	0	w	Ferensiril
+River Fornen	55.955	-9.409	5	0	w	Fornen
+River Gelerant	49.534	-6.619	58	0	w	Gelerant
+River Gelion	53.45	-9.481	5	0	w	Gelion
+River Gilrain	42.846	10.478	15	0	w	Gilrain
+River Glanduin	49.139	4.018	43	0	w	Glanduin
+River Gwathló	48	-0.007	46	0	w	Gwathló
+River Gûlduin	53.343	18.978	53	0	w	Gûlduin
+River Haldanen	43.561	3.065	27	0	w	Haldanen
+River Harnen	38.647	14.146	36	0	w	Harnen
+River Heldasiril	42.943	5.276	27	0	w	Heldasiril
+River Heledhra	55.423	-8.681	5	0	w	Heledhra
+River Helkasiril	56.633	12.65	8	0	w	Helkasiril
+River Hoarwell	51.256	3.672	14	0	w	Hoarwell
+River Huutava Joki	56.814	-1.368	14	0	w	Huutava Joki
+River Hwanhir	43.695	0.847	27	0	w	Hwanhir
+River Iaurló	43.49	-0.293	20	0	w	Iaurló
+River Ilinló	49.972	-4.064	14	0	w	Ilinló
+River Ithilduin	44.296	14.664	12	0	w	Ithilduin
+River Kivivesi	56.719	-0.696	14	0	w	Kivivesi
+River Kolme Siskoa	57.057	-3.764	14	0	w	Kolme Siskoa
+River Langwell	54.745	13.636	8	0	w	Langwell
+River Larkanen	40.741	-2.735	20	0	w	Larkanen
+River Lefnui	44.585	3.644	50	0	w	Lefnui
+River Lefnui	42.618	0.707	79	0	w	Lefnui
+River Lhúchir	60.436	7.922	29	0	w	Lhúchir
+River Lhûghiril	43.902	5.887	51	0	w	Lhûghiril
+River Lhûn	52.748	-4.421	14	0	w	Lhûn
+River Lildalé	49.898	-8.796	9	0	w	Lildalé
+River Limlaith	48.464	11.437	65	0	w	Limlaith
+River Luiden Joki	57.061	-0.396	14	0	w	Luiden Joki
+River Luithôn	49.687	-4.148	14	0	w	Luithôn
+River Lääkevesi	57.123	-2.787	14	0	w	Lääkevesi
+River Lórnen	53.112	-8.765	5	0	w	Lórnen
+River Mirilyasir	49.795	-8.382	9	0	w	Mirilyasir
+River Mitheithel	51.406	5.751	14	0	w	Mitheithel
+River Mithlin	55.352	15.367	7	0	w	Mithlin
+River Morthond	44.76	7.252	50	0	w	Morthond
+River Murló	50.359	-9.525	9	0	w	Murló
+River Narnhir	50.76	-7.355	9	0	w	Narnhir
+River Nenylos	49.953	-2.354	18	0	w	Nenylos
+River Nevedui	41.014	-2.094	20	0	w	Nevedui
+River Nimrodel	49.361	8.825	8	0	w	Nimrodel
+River Nimthond	44.357	1.543	20	0	w	Nimthond
+River Noyothîr	50.45	-6.08	14	0	w	Noyothîr
+River Onodló	46.921	9.334	25	0	w	Onodló
+River Onodló	45.965	11.117	48	0	w	Onodló
+River Pilindhir	43.971	-0.683	20	0	w	Pilindhir
+River Poros	41.585	13.052	35	0	w	Poros
+River Renyosir	49.027	-5.424	58	0	w	Renyosir
+River Ringló	43.882	9.311	42	0	w	Ringló
+River Rulin	38.184	10.269	36	0	w	Rulin
+River Rámanen	43.25	0.575	20	0	w	Rámanen
+River Rúasir	44.545	0.525	20	0	w	Rúasir
+River Rúhómir	44.607	3.359	50	0	w	Rúhómir
+River Serni	42.662	10.802	15	0	w	Serni
+River Shirebourne	51.228	-0.869	44	0	w	Shirebourne
+River Siak	34.998	26.342	39	0	w	Siak
+River Sildorod	54.376	-8.684	5	0	w	Sildorod
+River Sirannon	49.395	6.843	11	0	w	Sirannon
+River Sirith	42.93	12.355	15	0	w	Sirith
+River Sirros	53.526	13.866	7	0	w	Sirros
+River Snowbourn	46.055	8.38	48	0	w	Snowbourn
+River Sîr Morva	53.212	6.883	23	0	w	Sîr Morva
+River Sîr Ninglor	51.632	12.221	7	0	w	Sîr Ninglor
+River Taurduin	53.801	19.818	53	0	w	Taurduin
+River The Stockbrook	51.581	-0.338	44	0	w	The Stockbrook
+River Uialduin	53.67	-2.46	6	0	w	Uialduin
+River Vinhir	54.139	-11.094	5	0	w	Vinhir
+River Weneithel	49.874	-6.875	58	0	w	Weneithel
+River Withywindle	51.386	0.114	44	0	w	Withywindle
+River Zalim	38.636	11.758	36	0	w	Zalim
+River imeithel	50.637	-2.527	18	0	w	imeithel
+Rohan	46.537	8.178	25	0	g
+Rushock Bog	51.891	-1.516	44	0	m
+Rónen-in-Anduin	55.178	13.936	7	0	g
+Sagathavuld	46.932	21.758	80	0	g
+Sandariand	55.218	-8.752	5	0	g
+Sarchbel-i-Fannath	65.723	-20.129	29	0	o
+Sarn Ford	50.22	-0.37	18	0	d	Iach Sarn|Fords of Baranduin
+Sarn Gebir	46.744	13.723	54	0	g
+Sea of Núrnen	42.824	20.395	52	0	w	Nurnen|Lake Núrnen|Sea of Nurnen
+Sea of Rhûn	48.771	27.228	81	0	w	Sea of Rhun|Inland Sea
+Seldoriand	54.083	-8.859	5	0	g
+Siakan	35.485	27.044	39	0	g
+South Downs	50.862	2.544	18	0	r
+Sula	62.636	25.956	29	0	g
+Talath Harroch	47.265	17.999	63	0	n
+Talath Muil	55.625	-2.76	14	0	n
+Talath Oiohelka	56.71	25.132	62	0	g
+Talath Uichel	58.672	9.608	55	0	g
+Tarlang	44.527	7.926	42	0	g
+Tel Firn-i-Guinar	47.931	-6.447	26	0	o
+The High Hay	51.554	-0.018	44	0	g
+The Hill	51.8	-1.203	44	0	g
+The Marish	51.462	-0.402	44	0	m
+The Shire	51.624	-1.221	44	0	g	Shire|Sûza
+Tiauar-in-Drúedain	44.733	13.37	13	0	f
+Tol Brandir	46.409	13.395	54	0	o
+Tol Ely	66.183	-3.497	29	0	o
+Tol Fuin	55.577	-13.917	26	0	o
+Tol Glingal	35.133	7.549	19	0	o
+Tol Ramdol	51.645	-10.739	9	0	o
+Tol Uialgaer	35.949	4.628	26	0	o
+Tol Uiamith	51.847	-8.68	70	0	o
+Toldil	41.577	9.134	33	0	o
+Tolfalas	41.025	8.715	26	0	o
+Torogmar	64.561	3.5	29	0	g
+Trollshaws	52.046	7.844	16	0	g
+Tumnogoth Iaur	50.704	-5.659	14	0	g
+Tyrn Haën	51.026	-2.905	14	0	r
+Tyrn Nimrin	51.231	-2.318	44	0	r
+Udanoriath	55.307	5.117	1	0	g
+Udûn	45.633	15.895	22	0	g	Udun
+Uichith	66.072	-3.864	29	0	g
+Umb Estelwain	44.144	4.617	51	0	g
+Upper Khand	44.88	27.379	34	0	g
+Uthrael Beoac	55.858	17.987	62	0	g
+Velarith	36.847	26.875	39	0	g
+Vinyalas	53.325	-10.502	5	0	g
+Weather Hills	52.413	2.495	6	0	r
+Wellinghall	47.822	7.347	25	0	g
+Withered Heath	56.04	22.423	61	0	g
+Wold	47.718	11.241	65	0	g	The Wold|Wold of Rohan
+Úgúlai	55.598	12.999	8	0	r
+Úveduinorë	53.891	-11.561	5	0	g

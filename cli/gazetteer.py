@@ -15,7 +15,14 @@ import os
 import re
 import unicodedata
 
-DATA = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "data")
+# Which world. The earth's files sit in data/ itself; every other world has
+# a folder of the same four files under it. `wayfare.py --world` sets this
+# before importing here, because the files are read at import.
+_BASE = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "data")
+WORLD = os.environ.get("WAYFARE_WORLD", "earth")
+DATA = _BASE if WORLD == "earth" else os.path.join(_BASE, WORLD)
+if not os.path.isfile(os.path.join(DATA, "grids.json")):
+    raise SystemExit(f"no world called {WORLD!r} under data/")
 
 with open(os.path.join(DATA, "grids.json")) as fh:
     _G = json.load(fh)
@@ -93,7 +100,8 @@ def zone_at(lat, lon):
 
 # ── places ────────────────────────────────────────────────────────────────
 KINDS = {"c":"city","t":"town","r":"range","p":"park","f":"forest","s":"pass",
-         "w":"water","n":"plain","o":"coast","u":"custom"}
+         "w":"water","n":"plain","o":"coast","u":"custom",
+         "k":"stronghold","x":"ruin","g":"region","m":"marsh","d":"ford"}
 with open(os.path.join(DATA, "regions_table.json")) as fh:
     REGION_TABLE = json.load(fh)
 

@@ -27,6 +27,30 @@ python3 export.py        # data/: places.tsv, grids.json, coastline.json, region
 python3 emit_js.py       # the same four, packed into one JavaScript source
 ```
 
+## Middle-earth
+
+A second, much smaller pipeline, in one script:
+
+```bash
+pip install numpy pillow pyshp
+python3 data-build/build_middle_earth.py     # data/middle-earth/, in a few seconds
+```
+
+It wants, under `sources/middle-earth/`:
+
+| What | Where from |
+|---|---|
+| `ME-GIS/` | a clone of https://github.com/andrewheiss/ME-GIS — coastline, lakes, forests, wetlands and the named points, as shapefiles |
+| `10k.jpg`, `10k.wld` | `data/rasters/` in https://github.com/bburns/Arda — the ME-DEM elevation model as a byte-per-pixel JPEG, and its world file |
+
+The script's docstring explains how the frame is placed on the globe and how
+the raster's bytes are read as metres. `me_regions.py` holds the hand-drawn
+outlines — countries, settled land, grasslands, deserts, the far north —
+and `me_places.py` the second names everything in Tolkien has, plus the few
+places a reader will ask for that the layers have no point for. It also
+writes `middle_earth_preview.png` beside itself, which is the quickest way
+to see whether a border you moved went where you meant.
+
 `eu_boxes.py` holds the old provincial rectangles for Europe — Burgundy, the
 Ebro Valley, Wessex — which Natural Earth does not name. `../scripts/regions.py`
 holds the hand-drawn biome polygons, and `../scripts/places.py` the curated

@@ -3,7 +3,7 @@
     <h1>Wayfare Reckoner</h1>
     <div class="sub">Overland travel times · a world without roads</div>
   </div>
-  <p class="blurb">Reckons how long a journey takes on foot, horseback or by cart, anywhere on earth, in a world where the roads have mostly gone back to grass — finding a way over the ground rather than straight across it.</p>
+  <p class="blurb">Reckons how long a journey takes on foot, horseback or by cart, anywhere on earth — or in Middle-earth — in a world where the roads have mostly gone back to grass, finding a way over the ground rather than straight across it.</p>
   <button type="button" id="reset" class="reset" title="Clear the map and put every dial back where it started">Start afresh</button>
 </header>
 
@@ -16,6 +16,13 @@
   <aside class="rail">
     <div class="group">
       <div class="grouphead">The world</div>
+      <label class="f"><span>Which world</span>
+        <select id="world">
+          <option value="earth" selected>Our own earth</option>
+          <option value="middle-earth">Middle-earth</option>
+        </select>
+      </label>
+      <p class="hint" id="worldnote"></p>
       <div class="seg" id="register">
         <button data-v="chronicle" aria-pressed="true">Chronicle</button>
         <button data-v="romance" aria-pressed="false">Romance</button>
